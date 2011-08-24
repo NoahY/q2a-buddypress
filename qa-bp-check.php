@@ -42,6 +42,27 @@
 			
 			$content = $params['text'];
 
+			// mentions
+			
+			include_once( ABSPATH . WPINC . '/registration.php' );
+			
+			$pattern = '/[@]+([A-Za-z0-9-_\.]+)/';
+			preg_match_all( $pattern, $content, $usernames );
+
+			// Make sure there's only one instance of each username
+			if ($usernames = array_unique( $usernames[1])) {
+
+				foreach( (array)$usernames as $username ) {
+					if ( !$user_id = username_exists( $username ) )
+						continue;
+
+					// Increase the number of new @ mentions for the user
+					$new_mention_count = (int)get_user_meta( $user_id, 'bp_new_mention_count', true );
+					update_user_meta( $user_id, 'bp_new_mention_count', $new_mention_count + 1 );
+					$content = str_replace( "@$username", "<a href='" . bp_core_get_user_domain( bp_core_get_userid( $username ) ) . "' rel='nofollow'>@$username</a>", $content );
+				}
+			}
+
 			// activity post
 			
 			require_once QA_INCLUDE_DIR.'qa-app-users.php';
@@ -72,7 +93,7 @@
 			bp_activity_add(
 				array(
 					'action' => $action,
-					'content' => '',
+					'content' => $content,
 					'primary_link' => $activity_url,
 					'component' => 'bp-like',
 					'type' => 'activity_liked',
@@ -80,27 +101,6 @@
 					'item_id' => null
 				)
 			);
-
-			// mentions
-			
-			include_once( ABSPATH . WPINC . '/registration.php' );
-			
-			$pattern = '/[@]+([A-Za-z0-9-_\.]+)/';
-			preg_match_all( $pattern, $content, $usernames );
-
-			// Make sure there's only one instance of each username
-			if ( !$usernames = array_unique( $usernames[1] ) )
-				return $content;
-
-			foreach( (array)$usernames as $username ) {
-				if ( !$user_id = username_exists( $username ) )
-					continue;
-
-				// Increase the number of new @ mentions for the user
-				$new_mention_count = (int)get_user_meta( $user_id, 'bp_new_mention_count', true );
-				update_user_meta( $user_id, 'bp_new_mention_count', $new_mention_count + 1 );
-
-			}
 		}
 	}
 
