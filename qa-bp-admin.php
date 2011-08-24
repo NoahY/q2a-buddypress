@@ -18,9 +18,9 @@
 	function admin_form(&$qa_content)
 	{
 
-		//	Process form input
+	// Process form input
 
-			$ok = null;
+	    $ok = null;
 
             if (qa_clicked('buddypress_integration_save')) {
                 qa_opt('buddypress_integration_enable',qa_post_text('buddypress_integration_enable'));
