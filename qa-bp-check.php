@@ -1,23 +1,11 @@
 <?php
 
 	class qa_buddypress_event {
-
-// register default settings
-
-		function option_default($option) {
-			
-			switch($option) {
-				default:
-					return false;
-			}
-			
-		}
 		
 // main event processing function
 		
 		function process_event($event, $userid, $handle, $cookieid, $params) {
-			
-			if (qa_opt('mention_replace_enable')) {
+			if (qa_opt('buddypress_integration_enable')) {
 				switch ($event) {
 
 					// when a new question, answer or comment is created. The $params array contains full information about the new post, including its ID in $params['postid'] and textual content in $params['text'].
@@ -41,7 +29,7 @@
 		function post($event,$userid,$params,$suffix) {
 			
 			$content = $params['text'];
-
+			
 			// mentions
 			
 			include_once( ABSPATH . WPINC . '/registration.php' );
@@ -89,9 +77,7 @@
 			}
 			
 			$action = '<a href="' . bp_core_get_user_domain($userid) . '" rel="nofollow">'.$handle.'</a> posted a'.$context;
-			
-			$content = nl2br($content);
-			
+
 			bp_activity_add(
 				array(
 					'action' => $action,
