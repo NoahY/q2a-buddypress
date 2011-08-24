@@ -90,6 +90,8 @@
 			
 			$action = '<a href="' . bp_core_get_user_domain($userid) . '" rel="nofollow">'.$handle.'</a> posted a'.$context;
 			
+			$content = nl2br($content);
+			
 			bp_activity_add(
 				array(
 					'action' => $action,
