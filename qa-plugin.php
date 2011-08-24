@@ -1,7 +1,7 @@
 <?php
 
 /*
-        Plugin Name: Buddypress Mention Replace
+        Plugin Name: Buddypress Integration
         Plugin URI: 
         Plugin Description: 
         Plugin Version: 0.1
@@ -18,11 +18,11 @@
 			exit;
 	}
 
-	qa_register_plugin_module('event', 'qa-mr-check.php','mention_replace','Mention Event');
+	qa_register_plugin_module('event', 'qa-bp-check.php','qa_buddypress_event','Buddypress Event');
 	
-	qa_register_plugin_layer('qa-mr-layer.php', 'Mention Replacement Layer');	
+	qa_register_plugin_layer('qa-bp-layer.php', 'Buddypress Layer');	
 	
-	qa_register_plugin_module('module', 'qa-mr-admin.php', 'qa_mr_admin', 'Mention Replace Admin');
+	qa_register_plugin_module('module', 'qa-bp-admin.php', 'qa_bp_admin', 'Buddypress Admin');
 
 /*
 	Omit PHP closing tag to help avoid accidental output

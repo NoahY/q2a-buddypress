@@ -1,29 +1,29 @@
 <?php
-	class qa_mr_admin {
+    class qa_bp_admin {
 		
-		function allow_template($template)
-		{
-			return ($template!='admin');
-		}
+	function allow_template($template)
+	{
+		return ($template!='admin');
+	}
 
-		function option_default($option) {
-			
-			switch($option) {
-				default:
-					return false;
-			}
-			
+	function option_default($option) {
+		
+		switch($option) {
+			default:
+				return false;
 		}
+		
+	}
 
-		function admin_form(&$qa_content)
-		{
+	function admin_form(&$qa_content)
+	{
 
 		//	Process form input
 
 			$ok = null;
 
-            if (qa_clicked('mention_replace_save')) {
-                qa_opt('mention_replace_enable',qa_post_text('mention_replace_enable'));
+            if (qa_clicked('buddypress_integration_save')) {
+                qa_opt('buddypress_integration_enable',qa_post_text('buddypress_integration_enable'));
                 $ok = 'Settings Saved.';
             }
             
@@ -34,9 +34,9 @@
             $fields = array();
             
             $fields[] = array(
-                'label' => 'Enable mention replacement',
-                'tags' => 'NAME="mention_replace_enable"',
-                'value' => qa_opt('mention_replace_enable'),
+                'label' => 'Enable Buddypress integration',
+                'tags' => 'NAME="buddypress_integration_enable"',
+                'value' => qa_opt('buddypress_integration_enable'),
                 'type' => 'checkbox',
             );
  
@@ -49,7 +49,7 @@
                 'buttons' => array(
                     array(
                         'label' => 'Save',
-                        'tags' => 'NAME="mention_replace_save"',
+                        'tags' => 'NAME="buddypress_integration_save"',
                     )
                 ),
             );
