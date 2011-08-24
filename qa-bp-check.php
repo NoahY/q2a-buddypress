@@ -95,8 +95,8 @@
 					'action' => $action,
 					'content' => $content,
 					'primary_link' => $activity_url,
-					'component' => 'bp-like',
-					'type' => 'activity_liked',
+					'component' => 'bp-qa',
+					'type' => 'activity_qa',
 					'user_id' => $userid,
 					'item_id' => null
 				)
