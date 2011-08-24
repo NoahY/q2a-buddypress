@@ -28,8 +28,8 @@
 		
 		function post($event,$userid,$params,$suffix) {
 			
-			$content = $params['text'];
-			
+			$content = $params['content'];
+
 			// mentions
 			
 			include_once( ABSPATH . WPINC . '/registration.php' );
@@ -77,6 +77,12 @@
 			}
 			
 			$action = '<a href="' . bp_core_get_user_domain($userid) . '" rel="nofollow">'.$handle.'</a> posted a'.$context;
+
+			$informat=$params['format'];					
+
+			$viewer=qa_load_viewer($content, $informat);
+
+			$content=$viewer->get_html($content, $informat, array());
 
 			bp_activity_add(
 				array(
