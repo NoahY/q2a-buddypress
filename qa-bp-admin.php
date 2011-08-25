@@ -26,6 +26,7 @@
 
             if (qa_clicked('buddypress_integration_save')) {
                 qa_opt('buddypress_integration_enable',(bool)qa_post_text('buddypress_integration_enable'));
+                qa_opt('buddypress_integration_include_content',(int)qa_post_text('buddypress_integration_include_content'));
                 qa_opt('buddypress_integration_max_post_length',(int)qa_post_text('buddypress_integration_max_post_length'));
                 $ok = 'Settings Saved.';
             }
@@ -40,6 +41,15 @@
                 'label' => 'Enable Buddypress integration',
                 'tags' => 'NAME="buddypress_integration_enable"',
                 'value' => qa_opt('buddypress_integration_enable'),
+                'type' => 'checkbox',
+            );
+ 
+            
+            
+            $fields[] = array(
+                'label' => 'Include content summary of posts in activity stream',
+                'tags' => 'NAME="buddypress_integration_include_content"',
+                'value' => qa_opt('buddypress_integration_include_content'),
                 'type' => 'checkbox',
             );
  

@@ -92,16 +92,20 @@
 			
 			$action = '<a href="' . bp_core_get_user_domain($userid) . '" rel="nofollow">'.$handle.'</a> posted a'.$context;
 
-			$informat=$params['format'];					
+			if(qa_opt('buddypress_integration_include_content')) {
 
-			$viewer=qa_load_viewer($content, $informat);
-			
-			if (qa_opt('buddypress_integration_max_post_length') && strlen( $content ) > (int)qa_opt('buddypress_integration_max_post_length') ) {
-				$content = substr( $content, 0, (int)qa_opt('buddypress_integration_max_post_length') );
-				$content = $content.' ...';
-			}		
+				$informat=$params['format'];					
+
+				$viewer=qa_load_viewer($content, $informat);
 				
-			$content=$viewer->get_html($content, $informat, array());
+				if (qa_opt('buddypress_integration_max_post_length') && strlen( $content ) > (int)qa_opt('buddypress_integration_max_post_length') ) {
+					$content = substr( $content, 0, (int)qa_opt('buddypress_integration_max_post_length') );
+					$content = $content.' ...';
+				}		
+					
+				$content=$viewer->get_html($content, $informat, array());
+			}
+			else $content = null;
 
 			bp_activity_add(
 				array(
