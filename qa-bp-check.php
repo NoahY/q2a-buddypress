@@ -28,6 +28,11 @@
 		
 		function post($event,$userid,$params,$suffix) {
 			
+			if ( !function_exists( 'bp_core_install' ) ) {
+				error_log('Q2A Buddypress Plugin: Buddypress not found - please check your Wordpress/Q2A integration setup.');
+				return;
+			}
+			
 			$content = $params['content'];
 
 			// mentions
@@ -93,7 +98,7 @@
 			
 			if (qa_opt('buddypress_integration_max_post_length') && strlen( $content ) > (int)qa_opt('buddypress_integration_max_post_length') ) {
 				$content = substr( $content, 0, (int)qa_opt('buddypress_integration_max_post_length') );
-				$content = $content.'...';
+				$content = $content.' ...';
 			}		
 				
 			$content=$viewer->get_html($content, $informat, array());
