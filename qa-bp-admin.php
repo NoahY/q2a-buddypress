@@ -9,8 +9,10 @@
 	function option_default($option) {
 		
 		switch($option) {
-			default:
-				return false;
+		    case 'buddypress_integration_max_post_length':
+			return 140;
+		    default:
+			return false;
 		}
 		
 	}
@@ -23,7 +25,8 @@
 	    $ok = null;
 
             if (qa_clicked('buddypress_integration_save')) {
-                qa_opt('buddypress_integration_enable',qa_post_text('buddypress_integration_enable'));
+                qa_opt('buddypress_integration_enable',(bool)qa_post_text('buddypress_integration_enable'));
+                qa_opt('buddypress_integration_max_post_length',(int)qa_post_text('buddypress_integration_max_post_length'));
                 $ok = 'Settings Saved.';
             }
             
@@ -38,6 +41,14 @@
                 'tags' => 'NAME="buddypress_integration_enable"',
                 'value' => qa_opt('buddypress_integration_enable'),
                 'type' => 'checkbox',
+            );
+ 
+            
+            $fields[] = array(
+                'label' => 'Max. characters to post to activity stream',
+                'tags' => 'NAME="buddypress_integration_max_post_length"',
+                'value' => qa_opt('buddypress_integration_max_post_length'),
+                'type' => 'number',
             );
  
 

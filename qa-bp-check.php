@@ -91,8 +91,8 @@
 
 			$viewer=qa_load_viewer($content, $informat);
 			
-			if ( strlen( $content ) > 140 ) {
-				$content = substr( $content, 0, 140 );
+			if (qa_opt('buddypress_integration_max_post_length') && strlen( $content ) > (int)qa_opt('buddypress_integration_max_post_length') ) {
+				$content = substr( $content, 0, (int)qa_opt('buddypress_integration_max_post_length') );
 				$content = $content.'...';
 			}		
 				
