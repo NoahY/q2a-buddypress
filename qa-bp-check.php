@@ -76,7 +76,7 @@
 					);					
 				}
 				$anchor = qa_anchor(($event == 'a_post'?'A':'C'), $params['postid']);
-				$suffix = preg_replace('/%([^%]+)%/','<a href="'.qa_path_html(qa_q_request($parent['postid'], $parent['title']), null, qa_opt('site_url'),$anchor).'">$1</a>',$suffix);
+				$suffix = preg_replace('/%([^%]+)%/','<a href="'.qa_path_html(qa_q_request($parent['postid'], $parent['title']), null, qa_opt('site_url'),null,$anchor).'">$1</a>',$suffix);
 				$activity_url = qa_path_html(qa_q_request($parent['postid'], $parent['title']), null, qa_opt('site_url'));
 				$context = $suffix.'"<a href="'.$activity_url.'">'.$parent['title'].'</a>".';
 			}
