@@ -66,6 +66,15 @@
 					),
 					true
 				);
+				if($parent['type'] == 'A') {
+					$parent = qa_db_read_one_assoc(
+						qa_db_query_sub(
+							'SELECT * FROM ^posts WHERE postid=#',
+							$parent['parentid']
+						),
+						true
+					);					
+				}
 				$anchor = qa_anchor(($event == 'a_post'?'A':'C'), $params['postid']);
 				$suffix = preg_replace('/%([^%]+)%/','<a href="'.qa_path_html(qa_q_request($parent['postid'], $parent['title']), null, qa_opt('site_url'),$anchor).'">$1</a>',$suffix);
 				$activity_url = qa_path_html(qa_q_request($parent['postid'], $parent['title']), null, qa_opt('site_url'));
@@ -81,7 +90,12 @@
 			$informat=$params['format'];					
 
 			$viewer=qa_load_viewer($content, $informat);
-
+			
+			if ( strlen( $content ) > 140 ) {
+				$content = substr( $content, 0, 140 );
+				$content = $content.'...';
+			}		
+				
 			$content=$viewer->get_html($content, $informat, array());
 
 			bp_activity_add(
