@@ -12,7 +12,7 @@
 		    case 'buddypress_integration_max_post_length':
 			return 140;
 		    default:
-			return false;
+			return null;
 		}
 		
 	}
