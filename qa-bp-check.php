@@ -54,7 +54,7 @@
 				}
 				else $suffix = str_replace('question','poll',$suffix);
 			}
-			error_log($suffix);
+
 			$content = $params['content'];
 
 			// mentions
