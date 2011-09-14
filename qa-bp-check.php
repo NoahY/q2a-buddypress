@@ -30,7 +30,7 @@
 			
 			switch($type) {
 				case 'Q':
-					$suffix = ' question';
+					$suffix = ' question ';
 					break;
 				case 'A':
 					$suffix = 'n %answer% to the question ';
@@ -44,17 +44,17 @@
 				error_log('Q2A Buddypress Plugin: Buddypress not found - please check your Wordpress/Q2A integration setup.');
 				return;
 			}
-			if (qa_opt('poll_enable')) {
-				if($type == 'A') return;
-				$poll = qa_db_read_one_assoc(
-					qa_db_query_sub(
-						'SELECT * FROM ^postmeta WHERE postid=# AND meta_key=$',
-						$params['postid'], 'is_poll'
-					), true
-				);
-				if($poll) $suffix = str_replace('question','poll',$suffix);
-			}
 			
+			// poll integration
+			
+			if (qa_post_text('is_poll')) {
+				if($type == 'A') return;
+				if($type == 'Q') {
+					$suffix = str_replace('question','poll',$suffix);
+				}
+				else $suffix = str_replace('question','poll',$suffix);
+			}
+			error_log($suffix);
 			$content = $params['content'];
 
 			// mentions
@@ -109,7 +109,7 @@
 			}
 			else {
 				$activity_url = qa_path_html(qa_q_request($params['postid'], $params['title']), null, qa_opt('site_url'));
-				$context = ' question "<a href="'.$activity_url.'">'.$params['title'].'</a>".';
+				$context = $suffix.'"<a href="'.$activity_url.'">'.$params['title'].'</a>".';
 			}
 			
 			$action = '<a href="' . bp_core_get_user_domain($userid) . '" rel="nofollow">'.$handle.'</a> posted a'.$context;
