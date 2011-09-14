@@ -10,13 +10,13 @@
 
 					// when a new question, answer or comment is created. The $params array contains full information about the new post, including its ID in $params['postid'] and textual content in $params['text'].
 					case 'q_post':
-						$this->post($event,$userid,$params,' question');
+						$this->post($event,$userid,$params,'Q');
 						break;
 					case 'a_post':
-						$this->post($event,$userid,$params,'n %answer% to the question ');
+						$this->post($event,$userid,$params,'A');
 						break;
 					case 'c_post':
-						$this->post($event,$userid,$params,' %comment% on the question ');
+						$this->post($event,$userid,$params,'C');
 						break;
 					default:
 						break;
@@ -26,11 +26,33 @@
 
 		
 		
-		function post($event,$userid,$params,$suffix) {
+		function post($event,$userid,$params,$type) {
+			
+			switch($type) {
+				case 'Q':
+					$suffix = ' question';
+					break;
+				case 'A':
+					$suffix = 'n %answer% to the question ';
+					break;
+				case 'C':
+					$suffix = ' %comment% on the question ';
+					break;
+			}
 			
 			if ( !function_exists( 'bp_core_install' ) ) {
 				error_log('Q2A Buddypress Plugin: Buddypress not found - please check your Wordpress/Q2A integration setup.');
 				return;
+			}
+			if (qa_opt('poll_enable')) {
+				if($type == 'A') return;
+				$poll = qa_db_read_one_assoc(
+					qa_db_query_sub(
+						'SELECT * FROM ^postmeta WHERE postid=# AND meta_key=$',
+						$params['postid'], 'is_poll'
+					), true
+				);
+				if($poll) $suffix = str_replace('question','poll',$suffix);
 			}
 			
 			$content = $params['content'];
