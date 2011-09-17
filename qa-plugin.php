@@ -4,7 +4,7 @@
         Plugin Name: Buddypress Integration
         Plugin URI: 
         Plugin Description: 
-        Plugin Version: 0.1
+        Plugin Version: 1.0b
         Plugin Date: 2011-08-15
         Plugin Author: NoahY
         Plugin Author URI: 
