@@ -40,11 +40,6 @@
 					break;
 			}
 			
-			if ( !function_exists( 'bp_core_install' ) ) {
-				error_log('Q2A Buddypress Plugin: Buddypress not found - please check your Wordpress/Q2A integration setup.');
-				return;
-			}
-			
 			// poll integration
 			
 			if (qa_post_text('is_poll')) {
@@ -129,7 +124,7 @@
 			}
 			else $content = null;
 
-			bp_activity_add(
+			qa_buddypress_activity_post(
 				array(
 					'action' => $action,
 					'content' => $content,

@@ -25,10 +25,16 @@
 	    $ok = null;
 
             if (qa_clicked('buddypress_integration_save')) {
-                qa_opt('buddypress_integration_enable',(bool)qa_post_text('buddypress_integration_enable'));
-                qa_opt('buddypress_integration_include_content',(int)qa_post_text('buddypress_integration_include_content'));
-                qa_opt('buddypress_integration_max_post_length',(int)qa_post_text('buddypress_integration_max_post_length'));
-                $ok = 'Settings Saved.';
+		if(!function_exists( 'bp_core_install' )) {
+		    $ok = 'Buddypress not found - please check your Wordpress/Q2A integration setup.';
+		    qa_opt('buddypress_integration_enable', false);
+		}
+		else {
+		    qa_opt('buddypress_integration_enable',(bool)qa_post_text('buddypress_integration_enable'));
+		    qa_opt('buddypress_integration_include_content',(int)qa_post_text('buddypress_integration_include_content'));
+		    qa_opt('buddypress_integration_max_post_length',(int)qa_post_text('buddypress_integration_max_post_length'));
+		    $ok = 'Settings Saved.';
+		}
             }
             
                     
