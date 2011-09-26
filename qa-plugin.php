@@ -49,9 +49,9 @@
 		    'content'      => apply_filters( 'bp_activity_new_update_content', $activity_content ),
 		    'primary_link' => apply_filters( 'bp_activity_new_update_primary_link', $primary_link ),
 		    'component'    => $bp->activity->id,
-		    'type'         => 'activity_update'
+		    'type'         => $type
 	    ) );
-
+	    
 	    // Add this update to the "latest update" usermeta so it can be fetched anywhere.
 	    bp_update_user_meta( $bp->loggedin_user->id, 'bp_latest_update', array( 'id' => $activity_id, 'content' => wp_filter_kses( $content ) ) );
 
