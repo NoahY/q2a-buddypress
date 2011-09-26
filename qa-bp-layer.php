@@ -6,22 +6,22 @@
 
 			function q_view_content($q_view)
 			{
-				if (qa_opt('buddypress_integration_enable') && isset($q_view['content'])){
-					$q_view['content'] = $this->mention_replace($q_view['content']);
+				if (qa_opt('buddypress_integration_enable') && qa_opt('buddypress_mentions') && isset($q_view['content'])){
+					$q_view['content'] = bp_activity_at_name_filter($q_view['content']);
 				}
 				qa_html_theme_base::q_view_content($q_view);
 			}
 			function a_item_content($a_item)
 			{
-				if (qa_opt('buddypress_integration_enable') && isset($a_item['content'])) {
-					$a_item['content'] = $this->mention_replace($a_item['content']);
+				if (qa_opt('buddypress_integration_enable') && qa_opt('buddypress_mentions') && isset($a_item['content'])) {
+					$a_item['content'] = bp_activity_at_name_filter($a_item['content']);
 				}
 				qa_html_theme_base::a_item_content($a_item);
 			}
 			function c_item_content($c_item)
 			{
-				if (qa_opt('buddypress_integration_enable') && isset($c_item['content'])) {
-					$c_item['content'] = $this->mention_replace($c_item['content']);
+				if (qa_opt('buddypress_integration_enable') && qa_opt('buddypress_mentions') && isset($c_item['content'])) {
+					$c_item['content'] = bp_activity_at_name_filter($c_item['content']);
 				}
 				qa_html_theme_base::c_item_content($c_item);
 			}

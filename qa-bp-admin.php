@@ -31,6 +31,7 @@
 		}
 		else {
 		    qa_opt('buddypress_integration_enable',(bool)qa_post_text('buddypress_integration_enable'));
+		    qa_opt('buddypress_mentions',(bool)qa_post_text('buddypress_mentions'));
 		    qa_opt('buddypress_integration_include_content',(bool)qa_post_text('buddypress_integration_include_content'));
 		    qa_opt('buddypress_integration_max_post_length',(int)qa_post_text('buddypress_integration_max_post_length'));
 		    $ok = 'Settings Saved.';
@@ -51,14 +52,22 @@
             );
  
             
+            $fields[] = array(
+                'label' => 'Enable Buddypress mentions (see notes below)',
+                'tags' => 'NAME="buddypress_mentions"',
+                'value' => qa_opt('buddypress_mentions'),
+                'type' => 'checkbox',
+            );
+ 
+            
             
             $fields[] = array(
                 'label' => 'Include content summary of posts in activity stream',
                 'tags' => 'onclick="if(this.checked) jQuery(\'#bp_hide\').fadeIn(); else jQuery(\'#bp_hide\').fadeOut();" NAME="buddypress_integration_include_content"',
                 'value' => qa_opt('buddypress_integration_include_content'),
                 'type' => 'checkbox',
-		'note' => 'If this is unchecked, @username mentions will not function properly.  A better way to go about hiding the content in the stream is to add the following code to your buddypress theme stylesheet, so content will show only in the user mentions tab:<br><br><i>.activity_qa .activity-inner {<br>&nbsp;&nbsp;&nbsp;&nbsp;display:none;<br>}
-<br>.mentions .activity_qa .activity-inner {<br>&nbsp;&nbsp;&nbsp;&nbsp;display:block;<br>}</i>'
+		'note' => '<span style="font-size:85%;">If this is unchecked, @username mentions will not function properly.  A better way to go about hiding the content in the stream is to add the following code to your buddypress theme stylesheet, so content will show only in the user mentions tab:<br><br><i>.activity_qa .activity-inner {<br>&nbsp;&nbsp;&nbsp;&nbsp;display:none;<br>}
+<br>.mentions .activity_qa .activity-inner {<br>&nbsp;&nbsp;&nbsp;&nbsp;display:block;<br>}</i></span>'
             );
  
             
@@ -67,7 +76,7 @@
                 'tags' => 'NAME="buddypress_integration_max_post_length"',
                 'value' => qa_opt('buddypress_integration_max_post_length'),
                 'type' => 'number',
-		'note' => 'Setting this to 0 preserves the entire content (recommended for @username mention integration.</td></tr></table>'
+		'note' => '<span style="font-size:85%; font-weight:normal;">Setting this to 0 preserves the entire content (recommended for @username mention integration).</span></td></tr></table>'
             );
  
 

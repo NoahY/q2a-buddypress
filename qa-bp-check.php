@@ -28,6 +28,10 @@
 		
 		function post($event,$userid,$params,$type) {
 			
+			// remove mentions
+			
+			if(!qa_opt('buddypress_mentions')) remove_filter( 'bp_activity_after_save', 'bp_activity_at_name_filter_updates' );
+
 			switch($type) {
 				case 'Q':
 					$suffix = ' question ';
