@@ -106,15 +106,13 @@
 				$content=$viewer->get_html($content, $informat, array());
 			}
 			else $content = null;
-			
-			// fudge for wordpress breaking
-			
+
 			global $phpmailer;
 			if(class_exists('PHPMailer') && !is_object($phpmailer)) {
 				$phpmailer = new PHPMailer( true );
 			}
 
-			$act_id = bp_activity_post_update(
+			$act_id = qa_buddypress_activity_post(
 				array(
 					'action' => $action,
 					'content' => $content,
