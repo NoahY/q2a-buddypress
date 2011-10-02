@@ -27,7 +27,7 @@
 		
 		
 		function post($event,$userid,$params,$type) {
-			
+
 			// remove mentions
 			
 			if(!qa_opt('buddypress_mentions')) remove_filter( 'bp_activity_after_save', 'bp_activity_at_name_filter_updates' );
@@ -106,8 +106,15 @@
 				$content=$viewer->get_html($content, $informat, array());
 			}
 			else $content = null;
+			
+			// fudge for wordpress breaking
+			
+			global $phpmailer;
+			if(class_exists('PHPMailer') && !is_object($phpmailer)) {
+				$phpmailer = new PHPMailer( true );
+			}
 
-			$act_id = qa_buddypress_activity_post(
+			$act_id = bp_activity_post_update(
 				array(
 					'action' => $action,
 					'content' => $content,
