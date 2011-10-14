@@ -10,6 +10,7 @@
 
 					// when a new question, answer or comment is created. The $params array contains full information about the new post, including its ID in $params['postid'] and textual content in $params['text'].
 					case 'q_post':
+						if(qa_post_text('is_expert_question') == 'yes') return; // don't broadcast expert questions
 						$this->post($event,$userid,$params,'Q');
 						break;
 					case 'a_post':
