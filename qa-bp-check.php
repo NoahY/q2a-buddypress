@@ -14,9 +14,42 @@
 						$this->post($event,$userid,$params,'Q');
 						break;
 					case 'a_post':
+						if(qa_opt('expert_question_enable')) {
+							$expert = qa_db_read_one_value(
+								qa_db_query_sub(
+									"SELECT meta_value FROM ^postmeta WHERE post_id=# AND meta_key='is_expert_question'",
+									$params['parentid']
+								), true
+							);
+							if($expert) return;
+						}
 						$this->post($event,$userid,$params,'A');
 						break;
 					case 'c_post':
+						if(qa_opt('expert_question_enable')) {
+							
+							$pid = $params['parentid'];
+							
+							$parent = qa_db_read_one_assoc(
+								qa_db_query_sub(
+									"SELECT type, parentid FROM ^posts WHERE postid=#",
+									$pid
+								), true
+							);
+							
+							if(strpos($parent['type'],'A') === 0) {
+								$pid = $parent['parentid'];				
+							}
+							
+							$expert = qa_db_read_one_value(
+								qa_db_query_sub(
+									"SELECT meta_value FROM ^postmeta WHERE post_id=# AND meta_key='is_expert_question'",
+									$pid
+								), true
+							);
+							if($expert) return;
+						}
+						
 						$this->post($event,$userid,$params,'C');
 						break;
 					default:
