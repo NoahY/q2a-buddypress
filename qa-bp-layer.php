@@ -2,9 +2,9 @@
 
 	class qa_html_theme_layer extends qa_html_theme_base {
 
-	// theme replacement functions
+// theme replacement functions
 
-		// user profile
+	// user profile
 
 		function head_custom() {
 			qa_html_theme_base::head_custom();
@@ -24,7 +24,19 @@
 			qa_html_theme_base::main_parts($content);
 
 		}
-		
+
+	// handle replacements
+
+		function logged_in()
+		{
+			if(isset($this->content['loggedin']['data']) && qa_opt('buddypress_integration_enable') && qa_opt('buddypress_display_names')) {
+				$handle = qa_get_logged_in_handle();
+				$name = bp_core_get_user_displayname($handle);
+				$this->content['loggedin']['data'] = str_replace('>'.$handle.'<',' title="@'.$handle.'">'.$name.'<',$this->content['loggedin']['data']);
+			}
+			qa_html_theme_base::logged_in();
+		}
+
 		function post_meta_who($post, $class)
 		{
 			if(qa_opt('buddypress_integration_enable') && qa_opt('buddypress_display_names')) {
@@ -40,7 +52,7 @@
 					$handle = strip_tags($post['who_2']['data']);
 					$name = bp_core_get_user_displayname($handle);
 					if($name)
-						$post['who_2']['data']  = str_replace('>'.$handle.'<','>'.$name.'<',$post['who_2']['data']);
+						$post['who_2']['data']  = str_replace('>'.$handle.'<',' title="@'.$handle.'">'.$name.'<',$post['who_2']['data']);
 				}
 			}
 			qa_html_theme_base::post_meta_who($post, $class);
