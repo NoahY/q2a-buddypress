@@ -25,6 +25,27 @@
 
 		}
 		
+		function post_meta_who($post, $class)
+		{
+			if(qa_opt('buddypress_integration_enable') && qa_opt('buddypress_display_names')) {
+				if (isset($post['who']['data'])) {
+					
+					$handle = strip_tags($post['who']['data']);
+					$name = bp_core_get_user_displayname($handle);
+					if($name)
+						$post['who']['data']  = str_replace('>'.$handle.'<',' title="@'.$handle.'">'.$name.'<',$post['who']['data']);
+					
+				}
+				if (isset($post['who_2']['data'])) {
+					$handle = strip_tags($post['who_2']['data']);
+					$name = bp_core_get_user_displayname($handle);
+					if($name)
+						$post['who_2']['data']  = str_replace('>'.$handle.'<','>'.$name.'<',$post['who_2']['data']);
+				}
+			}
+			qa_html_theme_base::post_meta_who($post, $class);
+			
+		}		
 
 		function q_view_content($q_view)
 		{

@@ -44,6 +44,7 @@
 		else {
 		    qa_opt('buddypress_integration_enable',(bool)qa_post_text('buddypress_integration_enable'));
 		    qa_opt('buddypress_mentions',(bool)qa_post_text('buddypress_mentions'));
+		    qa_opt('buddypress_display_names',(bool)qa_post_text('buddypress_display_names'));
 		    qa_opt('buddypress_integration_include_content',(bool)qa_post_text('buddypress_integration_include_content'));
 		    qa_opt('buddypress_integration_max_post_length',(int)qa_post_text('buddypress_integration_max_post_length'));
 		    qa_opt('buddypress_enable_profile',(int)qa_post_text('buddypress_enable_profile'));
@@ -72,6 +73,15 @@
                 'type' => 'checkbox',
             );
  
+            
+            $fields[] = array(
+                'label' => 'Use Buddypress display names instead of handles in meta',
+                'tags' => 'NAME="buddypress_display_names"',
+                'value' => qa_opt('buddypress_display_names'),
+                'type' => 'checkbox',
+            );
+ 
+            
             
             $fields[] = array(
                 'label' => 'Enable Buddypress mentions (see notes below)',
