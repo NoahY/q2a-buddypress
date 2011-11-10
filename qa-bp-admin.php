@@ -11,6 +11,18 @@
 		switch($option) {
 		    case 'buddypress_integration_max_post_length':
 			return 0;
+		    case 'buddypress_integration_title':
+			return 'Buddypress Profile';
+		    case 'buddypress_integration_css':
+			return '
+.qa-bp-profile-group-title{
+    font-size:16px;
+    text-decoration: underline;
+}
+.qa-bp-profile-group-edit{
+    text-decoration: underline !important;
+}
+';
 		    default:
 			return null;
 		}
@@ -34,9 +46,18 @@
 		    qa_opt('buddypress_mentions',(bool)qa_post_text('buddypress_mentions'));
 		    qa_opt('buddypress_integration_include_content',(bool)qa_post_text('buddypress_integration_include_content'));
 		    qa_opt('buddypress_integration_max_post_length',(int)qa_post_text('buddypress_integration_max_post_length'));
-		    $ok = 'Settings Saved.';
+		    qa_opt('buddypress_enable_profile',(int)qa_post_text('buddypress_enable_profile'));
+		    qa_opt('buddypress_tab_title',qa_post_text('buddypress_tab_title'));
+		    $ok = qa_lang('admin/options_saved');
 		}
             }
+	    else if (qa_clicked('buddypress_integration_reset')) {
+		foreach($_POST as $i => $v) {
+		    $def = $this->option_default($i);
+		    if($def !== null) qa_opt($i,$def);
+		}
+		$ok = qa_lang('admin/options_reset');
+	    }
             
                     
         // Create the form for display
@@ -79,6 +100,29 @@
 		'note' => '<span style="font-size:85%; font-weight:normal;">Setting this to 0 preserves the entire content (recommended for @username mention integration).</span></td></tr></table>'
             );
  
+            
+            $fields[] = array(
+                'type' => 'blank',
+            );
+            $fields[] = array(
+                'label' => 'Enable Buddypress profile box',
+                'tags' => 'NAME="buddypress_enable_profile"',
+                'value' => qa_opt('buddypress_enable_profile'),
+                'type' => 'checkbox',
+            );
+            $fields[] = array(
+                'label' => 'Buddypress profile box title',
+                'tags' => 'NAME="buddypress_integration_title"',
+                'value' => qa_opt('buddypress_integration_title'),
+            );
+            $fields[] = array(
+                'label' => 'Buddypress profile box css',
+                'tags' => 'NAME="buddypress_integration_css"',
+                'value' => qa_opt('buddypress_integration_css'),
+		'type' => 'textarea',
+		'rows' => 20
+            );
+ 
 
             return array(           
                 'ok' => ($ok && !isset($error)) ? $ok : null,
@@ -87,9 +131,13 @@
              
                 'buttons' => array(
                     array(
-                        'label' => 'Save',
+                        'label' => qa_lang_html('main/save_button'),
                         'tags' => 'NAME="buddypress_integration_save"',
-                    )
+                    ),
+                    array(
+                        'label' => qa_lang_html('admin/reset_options_button'),
+                        'tags' => 'NAME="buddypress_integration_reset"',
+                    ),
                 ),
             );
         }
