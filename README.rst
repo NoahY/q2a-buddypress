@@ -15,7 +15,8 @@ Features
 --------
 - replace @username mentions with links to buddypress user profiles
 - adds questions, answers and comments to the activity feed
-- integration may be deactivated via admin page
+- optionally replaces usernames with display names
+- adds Buddypress profile box to user profile page
 
 
 ------------
