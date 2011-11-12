@@ -14,9 +14,10 @@ This is a plugin for **Question2Answer** that provides integration with Buddypre
 Features
 --------
 - replace @username mentions with links to buddypress user profiles
-- adds questions, answers and comments to the activity feed
-- optionally replaces usernames with display names
-- adds Buddypress profile box to user profile page
+- add questions, answers and comments to the activity feed
+- add buddypress avatars to posts
+- replace usernames with display names
+- add Buddypress profile box to user profile page
 
 
 ------------
