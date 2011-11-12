@@ -155,7 +155,7 @@
 				'ok' => ($ok && !isset($error)) ? $ok : null,
 				'style' => 'wide',
 				'tags' => $tags,
-				'title' => '<a href="'.bp_core_get_user_domain($userid) . $bp->profile->slug .'/">'.qa_opt('buddypress_tab_title').'</a>',
+				'title' => '<a href="'.bp_core_get_user_domain($userid) . $bp->profile->slug .'/">'.qa_opt('buddypress_integration_title').'</a>',
 				'fields'=>$fields,
 				'buttons'=>$buttons,
 			);
