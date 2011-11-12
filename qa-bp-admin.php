@@ -11,6 +11,10 @@
 		switch($option) {
 		    case 'buddypress_integration_max_post_length':
 			return 0;
+		    case 'buddypress_integration_avatar_w':
+			return 50;
+		    case 'buddypress_integration_avatar_h':
+			return 50;
 		    case 'buddypress_integration_title':
 			return 'Profile';
 		    case 'buddypress_integration_css':
@@ -46,6 +50,9 @@
 		    qa_opt('buddypress_mentions',(bool)qa_post_text('buddypress_mentions'));
 		    qa_opt('buddypress_display_names',(bool)qa_post_text('buddypress_display_names'));
 		    qa_opt('buddypress_integration_include_content',(bool)qa_post_text('buddypress_integration_include_content'));
+		    qa_opt('buddypress_integration_avatars',(bool)qa_post_text('buddypress_integration_avatars'));
+		    qa_opt('buddypress_integration_avatar_h',(int)qa_post_text('buddypress_integration_avatar_h'));
+		    qa_opt('buddypress_integration_avatar_w',(int)qa_post_text('buddypress_integration_avatar_w'));
 		    qa_opt('buddypress_integration_max_post_length',(int)qa_post_text('buddypress_integration_max_post_length'));
 		    qa_opt('buddypress_enable_profile',(int)qa_post_text('buddypress_enable_profile'));
 		    qa_opt('buddypress_integration_title',qa_post_text('buddypress_integration_title'));
@@ -80,9 +87,7 @@
                 'value' => qa_opt('buddypress_display_names'),
                 'type' => 'checkbox',
             );
- 
-            
-            
+
             $fields[] = array(
                 'label' => 'Enable Buddypress mentions (see notes below)',
                 'tags' => 'NAME="buddypress_mentions"',
@@ -90,7 +95,36 @@
                 'type' => 'checkbox',
             );
  
+	    $fields[] = array(
+                'type' => 'blank',
+            );          
             
+            
+            $fields[] = array(
+                'label' => 'Enable Buddypress avatars',
+                'tags' => 'NAME="buddypress_integration_avatars"',
+                'value' => qa_opt('buddypress_integration_avatars'),
+                'type' => 'checkbox',
+            );
+ 
+            $fields[] = array(
+                'label' => 'Buddypress avatar width',
+                'tags' => 'NAME="buddypress_integration_avatar_w"',
+                'value' => qa_opt('buddypress_integration_avatar_w'),
+                'type' => 'number',
+            );
+ 
+            $fields[] = array(
+                'label' => 'Buddypress avatar height',
+                'tags' => 'NAME="buddypress_integration_avatar_h"',
+                'value' => qa_opt('buddypress_integration_avatar_h'),
+                'type' => 'number',
+            );
+            
+ 
+	    $fields[] = array(
+                'type' => 'blank',
+            );          
             
             $fields[] = array(
                 'label' => 'Include content summary of posts in activity stream',

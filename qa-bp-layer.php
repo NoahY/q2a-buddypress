@@ -59,6 +59,26 @@
 			
 		}		
 
+	// avatars
+
+        function post_avatar($post, $class, $prefix=null)
+        {
+            if (qa_opt('buddypress_integration_enable') && qa_opt('buddypress_integration_avatars')) {
+				if (isset($prefix))
+					$this->output($prefix);
+				
+				$id = $post['raw']['userid'];
+				$user_info = get_userdata($id);
+				$email = $user_info->user_email;
+				$avatar = bp_core_fetch_avatar( array( 'item_id' => $id, 'width' => qa_opt('buddypress_integration_avatar_w'), 'height' => qa_opt('buddypress_integration_avatar_h'), 'email' => $email ) );
+				$this->output('<SPAN CLASS="'.$class.'-avatar">', $avatar, '</SPAN>');
+			}
+			else
+				qa_html_theme_base::post_avatar($post, $class, $prefix=null);
+        }	
+
+	// @mentions
+
 		function q_view_content($q_view)
 		{
 			if (qa_opt('buddypress_integration_enable') && qa_opt('buddypress_mentions') && isset($q_view['content'])){
