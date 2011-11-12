@@ -133,7 +133,7 @@
 								$fields[] = array(
 										'label' => bp_get_the_profile_field_name(),
 										'type' => 'static',
-										'value' => preg_replace('|</*p>|','',bp_get_the_profile_field_value())
+										'value' => strip_tags(bp_get_the_profile_field_value())
 								);										
 
 							endif;
