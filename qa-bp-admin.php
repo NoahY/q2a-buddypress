@@ -12,7 +12,7 @@
 		    case 'buddypress_integration_max_post_length':
 			return 0;
 		    case 'buddypress_integration_title':
-			return 'Buddypress Profile';
+			return 'Profile';
 		    case 'buddypress_integration_css':
 			return '
 .qa-bp-profile-group-title{
@@ -48,7 +48,7 @@
 		    qa_opt('buddypress_integration_include_content',(bool)qa_post_text('buddypress_integration_include_content'));
 		    qa_opt('buddypress_integration_max_post_length',(int)qa_post_text('buddypress_integration_max_post_length'));
 		    qa_opt('buddypress_enable_profile',(int)qa_post_text('buddypress_enable_profile'));
-		    qa_opt('buddypress_tab_title',qa_post_text('buddypress_tab_title'));
+		    qa_opt('buddypress_integration_title',qa_post_text('buddypress_integration_title'));
 		    $ok = qa_lang('admin/options_saved');
 		}
             }
