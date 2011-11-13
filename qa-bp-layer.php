@@ -13,6 +13,15 @@
 				$this->output('
 <style>',qa_opt('buddypress_integration_css'),'</style>');
 			}
+			
+			// avatar as image_src
+			
+            if (qa_opt('buddypress_integration_enable') && qa_opt('buddypress_integration_avatar_head')) {
+				$avatar = preg_replace('|.*src="([^"]+)".*|i','$1',bp_core_fetch_avatar( array( 'item_id' => $this->content['q_view']['raw']['userid'], 'width' => qa_opt('buddypress_integration_avatar_w'), 'height' => qa_opt('buddypress_integration_avatar_h'), 'email' => $email ) ));
+				$avatar = preg_replace('|.*SRC="([^"]+)".*|i','$1',$this->content['q_view']['avatar']);
+				if(isset($avatar)) 
+					$this->output('<link rel="image_src" href="'.$avatar.'" />');
+			}
 		}
 
 		function main_parts($content)
@@ -58,7 +67,17 @@
 			qa_html_theme_base::post_meta_who($post, $class);
 			
 		}		
-
+		function ranking_label($item, $class)
+		{
+			if(qa_opt('buddypress_integration_enable') && qa_opt('buddypress_display_names') && $class == 'qa-top-users') {
+				$handle = strip_tags($item['label']);
+				$name = bp_core_get_user_displayname($handle);
+				if($name)
+					$item['label'] = str_replace('>'.$handle.'<',' title="@'.$handle.'">'.$name.'<',$item['label']);
+			}
+			qa_html_theme_base::ranking_label($item, $class);
+		}
+		
 	// avatars
 
         function post_avatar($post, $class, $prefix=null)

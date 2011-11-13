@@ -51,6 +51,7 @@
 		    qa_opt('buddypress_display_names',(bool)qa_post_text('buddypress_display_names'));
 		    qa_opt('buddypress_integration_include_content',(bool)qa_post_text('buddypress_integration_include_content'));
 		    qa_opt('buddypress_integration_avatars',(bool)qa_post_text('buddypress_integration_avatars'));
+		    qa_opt('buddypress_integration_avatar_head',(bool)qa_post_text('buddypress_integration_avatar_head'));
 		    qa_opt('buddypress_integration_avatar_h',(int)qa_post_text('buddypress_integration_avatar_h'));
 		    qa_opt('buddypress_integration_avatar_w',(int)qa_post_text('buddypress_integration_avatar_w'));
 		    qa_opt('buddypress_integration_max_post_length',(int)qa_post_text('buddypress_integration_max_post_length'));
@@ -105,6 +106,14 @@
                 'tags' => 'NAME="buddypress_integration_avatars"',
                 'value' => qa_opt('buddypress_integration_avatars'),
                 'type' => 'checkbox',
+            );
+            
+            $fields[] = array(
+                'label' => 'Add questioner\'s Buddypress avatar to head',
+                'tags' => 'NAME="buddypress_integration_avatar_head"',
+                'value' => qa_opt('buddypress_integration_avatar_head'),
+                'type' => 'checkbox',
+		'note' => 'adds a link to the &lt;head&gt; of each question page that is picked up by sites like Facebook'
             );
  
             $fields[] = array(

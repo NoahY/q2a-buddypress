@@ -5,7 +5,7 @@
 // main event processing function
 		
 		function process_event($event, $userid, $handle, $cookieid, $params) {
-			if (qa_opt('buddypress_integration_enable')) {
+			if (qa_opt('buddypress_integration_enable') && $userid) {
 				switch ($event) {
 
 					// when a new question, answer or comment is created. The $params array contains full information about the new post, including its ID in $params['postid'] and textual content in $params['text'].
