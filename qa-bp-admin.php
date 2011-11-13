@@ -83,7 +83,7 @@
  
             
             $fields[] = array(
-                'label' => 'Use Buddypress display names instead of handles in meta',
+                'label' => 'Use Buddypress display names instead of handles',
                 'tags' => 'NAME="buddypress_display_names"',
                 'value' => qa_opt('buddypress_display_names'),
                 'type' => 'checkbox',

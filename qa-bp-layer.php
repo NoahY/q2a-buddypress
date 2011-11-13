@@ -67,6 +67,23 @@
 			qa_html_theme_base::post_meta_who($post, $class);
 			
 		}		
+
+		function main()
+		{
+			if(qa_opt('buddypress_integration_enable') && qa_opt('buddypress_display_names') && $this->template == 'user' && @$this->content['title']) {
+				$rest = str_replace('^','(\S+)',qa_lang_html('profile/user_x'));
+				$handle = preg_replace('|'.$rest.'|','$1',$this->content['title']);
+				$name = bp_core_get_user_displayname($handle);
+				if($name) {
+					$this->content['title']=qa_lang_html_sub('profile/user_x', $name).' (@'.$handle.')';
+					if(isset($this->content['form_activity'])) {
+						$this->content['form_activity']['title'] = qa_lang_html_sub('profile/activity_by_x', $name);
+					}
+				}
+			}			
+			qa_html_theme_base::main();
+		}
+
 		function ranking_label($item, $class)
 		{
 			if(qa_opt('buddypress_integration_enable') && qa_opt('buddypress_display_names') && $class == 'qa-top-users') {
