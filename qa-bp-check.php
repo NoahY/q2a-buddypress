@@ -11,7 +11,7 @@
 					// when a new question, answer or comment is created. The $params array contains full information about the new post, including its ID in $params['postid'] and textual content in $params['text'].
 					case 'q_post':
 						if(qa_post_text('is_expert_question') == 'yes') return; // don't broadcast expert questions
-						$this->post($event,$userid,$params,'Q');
+						$this->post($event,$userid,$handle,$params,'Q');
 						break;
 					case 'a_post':
 						if(qa_post_text('is_expert_question') == 'yes')
@@ -41,7 +41,7 @@
 							if($expert) return;
 						}
 													
-						$this->post($event,$userid,$params,'A');
+						$this->post($event,$userid,$handle,$params,'A');
 						break;
 					case 'c_post':
 						if(qa_opt('expert_question_enable')) {
@@ -68,7 +68,7 @@
 							if($expert) return;
 						}
 						
-						$this->post($event,$userid,$params,'C');
+						$this->post($event,$userid,$handle,$params,'C');
 						break;
 					default:
 						break;
@@ -78,7 +78,7 @@
 
 		
 		
-		function post($event,$userid,$params,$type) {
+		function post($event,$userid,$handle,$params,$type) {
 
 			// remove mentions
 			
@@ -110,10 +110,6 @@
 
 			// activity post
 			
-			//require_once QA_INCLUDE_DIR.'qa-app-users.php';
-			
-			$publictohandle=qa_get_public_from_userids(array($userid));
-			$handle=@$publictohandle[$userid];
 			
 			if($event != 'q_post') {
 				$parent = qa_db_read_one_assoc(
