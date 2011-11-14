@@ -142,7 +142,7 @@
 				$context = $suffix.'"<a href="'.$activity_url.'">'.$params['title'].'</a>".';
 			}
 			if(qa_opt('buddypress_display_names'))
-				$name = bp_core_get_user_displayname($handle);
+				$name = bp_core_get_user_displayname($handle)?bp_core_get_user_displayname($handle):$handle;
 			else 
 				$name = $handle;
 			
