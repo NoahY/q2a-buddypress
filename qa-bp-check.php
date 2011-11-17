@@ -170,7 +170,7 @@
 					'content' => $content,
 					'primary_link' => $activity_url,
 					'component' => 'bp-qa',
-					'type' => 'activity_qa',
+					'type' => 'activity_qa_'.$type,
 					'user_id' => $userid,
 					'item_id' => null
 				)
