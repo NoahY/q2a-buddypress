@@ -10,11 +10,11 @@
 
 					// when a new question, answer or comment is created. The $params array contains full information about the new post, including its ID in $params['postid'] and textual content in $params['text'].
 					case 'q_post':
-						if(qa_post_text('is_expert_question') == 'yes') return; // don't broadcast expert questions
+						if(qa_post_text('is_expert_question') == 'yes' || !qa_opt('buddypress_integration_post_q')) return; // don't broadcast expert questions
 						$this->post($event,$userid,$handle,$params,'Q');
 						break;
 					case 'a_post':
-						if(qa_post_text('is_expert_question') == 'yes')
+						if(qa_post_text('is_expert_question') == 'yes' || !qa_opt('buddypress_integration_post_a'))
 							return;
 						
 						if(qa_opt('expert_question_enable')) {
@@ -44,7 +44,7 @@
 						$this->post($event,$userid,$handle,$params,'A');
 						break;
 					case 'c_post':
-						if(qa_opt('expert_question_enable')) {
+						if(qa_opt('expert_question_enable') || !qa_opt('buddypress_integration_post_c')) {
 							
 							$pid = $params['parentid'];
 							

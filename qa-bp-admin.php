@@ -9,6 +9,12 @@
 	function option_default($option) {
 		
 		switch($option) {
+		    case 'buddypress_integration_post_q':
+			return true;
+		    case 'buddypress_integration_post_a':
+			return true;
+		    case 'buddypress_integration_post_c':
+			return true;
 		    case 'buddypress_integration_max_post_length':
 			return 0;
 		    case 'buddypress_integration_avatar_w':
@@ -47,6 +53,11 @@
 		}
 		else {
 		    qa_opt('buddypress_integration_enable',(bool)qa_post_text('buddypress_integration_enable'));
+		    
+		    qa_opt('buddypress_integration_post_q',(bool)qa_post_text('buddypress_integration_post_q'));
+		    qa_opt('buddypress_integration_post_a',(bool)qa_post_text('buddypress_integration_post_a'));
+		    qa_opt('buddypress_integration_post_c',(bool)qa_post_text('buddypress_integration_post_c'));
+		    
 		    qa_opt('buddypress_mentions',(bool)qa_post_text('buddypress_mentions'));
 		    qa_opt('buddypress_display_names',(bool)qa_post_text('buddypress_display_names'));
 		    qa_opt('buddypress_integration_include_content',(bool)qa_post_text('buddypress_integration_include_content'));
@@ -78,6 +89,33 @@
                 'label' => 'Enable Buddypress integration',
                 'tags' => 'NAME="buddypress_integration_enable"',
                 'value' => qa_opt('buddypress_integration_enable'),
+                'type' => 'checkbox',
+            );
+ 
+            
+            
+            $fields[] = array(
+                'label' => 'Post new questions to stream',
+                'tags' => 'NAME="buddypress_integration_post_q"',
+                'value' => qa_opt('buddypress_integration_post_q'),
+                'type' => 'checkbox',
+            );
+ 
+            
+            
+            $fields[] = array(
+                'label' => 'Post new answers to stream',
+                'tags' => 'NAME="buddypress_integration_post_a"',
+                'value' => qa_opt('buddypress_integration_post_a'),
+                'type' => 'checkbox',
+            );
+ 
+            
+            
+            $fields[] = array(
+                'label' => 'Post new comments to stream',
+                'tags' => 'NAME="buddypress_integration_post_c"',
+                'value' => qa_opt('buddypress_integration_post_c'),
                 'type' => 'checkbox',
             );
  
