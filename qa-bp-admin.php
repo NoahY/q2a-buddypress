@@ -92,7 +92,10 @@
                 'type' => 'checkbox',
             );
  
-            
+  
+	    $fields[] = array(
+                'type' => 'blank',
+            );           
             
             $fields[] = array(
                 'label' => 'Post new questions to stream',
@@ -119,6 +122,9 @@
                 'type' => 'checkbox',
             );
  
+	    $fields[] = array(
+                'type' => 'blank',
+            ); 
             
             $fields[] = array(
                 'label' => 'Use Buddypress display names instead of handles',
