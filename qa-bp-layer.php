@@ -70,13 +70,18 @@
 					$name = bp_core_get_user_displayname($handle);
 					if($name)
 						$post['who']['data']  = str_replace('>'.$handle.'<',' title="@'.$handle.'">'.$name.'<',$post['who']['data']);
+					if($handle && !in_array($handle,$this->bp_mentions)) // @mentions
+						$this->bp_mentions[] = $handle;
 					
 				}
 				if (isset($post['who_2']['data'])) {
-					$handle = strip_tags($post['who_2']['data']);
-					$name = bp_core_get_user_displayname($handle);
-					if($name)
-						$post['who_2']['data']  = str_replace('>'.$handle.'<',' title="@'.$handle.'">'.$name.'<',$post['who_2']['data']);
+					$handle2 = strip_tags($post['who_2']['data']);
+					$name2 = bp_core_get_user_displayname($handle2);
+					if($name2)
+						$post['who_2']['data']  = str_replace('>'.$handle2.'<',' title="@'.$handle2.'">'.$name2.'<',$post['who_2']['data']);
+					if($handle2 && !in_array($handle2,$this->bp_mentions)) // @mentions
+						$this->bp_mentions[] = $handle2;
+
 				}
 			}
 			qa_html_theme_base::post_meta_who($post, $class);
@@ -135,6 +140,20 @@
 			}
 			qa_html_theme_base::c_item_content($c_item);
 		}
+		
+		var $bp_mentions = array();
+		
+		function body_suffix() {
+			// @username autocomplete
+			
+            if (qa_opt('buddypress_integration_enable') && qa_opt('buddypress_integration_autocomplete') && !empty($this->bp_mentions)) {
+				$this->output('<script type="text/javascript">','var bp_mention_autocomplete = [\''.implode("','",$this->bp_mentions).'\'];','</script>');
+			}
+		}
+
+		
+	// worker
+
 
 		function mention_replace($content) {
 					
@@ -156,8 +175,6 @@
 			}
 			return $content;
 		}
-		
-	// worker
 		
 		function user_buddypress_form() {
 			// displays badge list in user profile

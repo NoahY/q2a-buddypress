@@ -59,14 +59,21 @@
 		    qa_opt('buddypress_integration_post_c',(bool)qa_post_text('buddypress_integration_post_c'));
 		    
 		    qa_opt('buddypress_mentions',(bool)qa_post_text('buddypress_mentions'));
+		    qa_opt('buddypress_integration_autocomplete',(bool)qa_post_text('buddypress_integration_autocomplete'));
+		    
 		    qa_opt('buddypress_display_names',(bool)qa_post_text('buddypress_display_names'));
+
 		    qa_opt('buddypress_integration_include_content',(bool)qa_post_text('buddypress_integration_include_content'));
+
 		    qa_opt('buddypress_integration_avatars',(bool)qa_post_text('buddypress_integration_avatars'));
 		    qa_opt('buddypress_integration_avatar_head',(bool)qa_post_text('buddypress_integration_avatar_head'));
 		    qa_opt('buddypress_integration_avatar_h',(int)qa_post_text('buddypress_integration_avatar_h'));
 		    qa_opt('buddypress_integration_avatar_w',(int)qa_post_text('buddypress_integration_avatar_w'));
+
 		    qa_opt('buddypress_integration_max_post_length',(int)qa_post_text('buddypress_integration_max_post_length'));
+
 		    qa_opt('buddypress_enable_profile',(int)qa_post_text('buddypress_enable_profile'));
+
 		    qa_opt('buddypress_integration_title',qa_post_text('buddypress_integration_title'));
 		    $ok = qa_lang('admin/options_saved');
 		}
@@ -137,6 +144,14 @@
                 'label' => 'Enable Buddypress mentions (see notes below)',
                 'tags' => 'NAME="buddypress_mentions"',
                 'value' => qa_opt('buddypress_mentions'),
+                'type' => 'checkbox',
+            );
+
+            $fields[] = array(
+                'label' => 'Enable Buddypress mention autocomplete',
+                'tags' => 'NAME="buddypress_integration_autocomplete"',
+                'value' => qa_opt('buddypress_integration_autocomplete'),
+                'note' => 'this just collects the usernames on the current page in a js array (bp_mention_autocomplete).  For autocomplete to work, you will need to create your own function in the editor of your choice.',
                 'type' => 'checkbox',
             );
  
