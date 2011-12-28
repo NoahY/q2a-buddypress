@@ -15,7 +15,6 @@
 						$this->post($event,$userid,$handle,$params,'Q');
 						break;
 					case 'a_post':
-						qa_error_log(qa_opt('buddypress_integration_post_a'));
 						if(qa_post_text('is_expert_question') == 'yes' || !qa_opt('buddypress_integration_post_a'))
 							return;
 						
