@@ -91,7 +91,7 @@
 		function ranking_label($item, $class)
 		{
 			if(qa_opt('buddypress_integration_enable') && qa_opt('buddypress_display_names') && $class == 'qa-top-users') {
-				$handle = strip_tags($item['label']);
+				$handle = $this->who_to_handle($item['label']);
 				$name = bp_core_get_user_displayname($handle);
 				if($name)
 					$item['label'] = str_replace('>'.$handle.'<',' title="@'.$handle.'">'.$name.'<',$item['label']);
