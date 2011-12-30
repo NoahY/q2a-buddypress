@@ -17,10 +17,14 @@
 			return true;
 		    case 'buddypress_integration_max_post_length':
 			return 0;
-		    case 'buddypress_integration_avatar_w':
-			return 50;
-		    case 'buddypress_integration_avatar_h':
-			return 50;
+		    case 'buddypress_integration_avatars_qv_size':
+			return 48;
+		    case 'buddypress_integration_avatars_qi_size':
+			return 24;
+		    case 'buddypress_integration_avatars_a_size':
+			return 48;
+		    case 'buddypress_integration_avatars_c_size':
+			return 24;
 		    case 'buddypress_integration_title':
 			return 'Profile';
 		    case 'buddypress_integration_css':
@@ -65,10 +69,16 @@
 
 		    qa_opt('buddypress_integration_include_content',(bool)qa_post_text('buddypress_integration_include_content'));
 
-		    qa_opt('buddypress_integration_avatars',(bool)qa_post_text('buddypress_integration_avatars'));
+		    qa_opt('buddypress_integration_avatars_qv',(bool)qa_post_text('buddypress_integration_avatars_qv'));
+		    qa_opt('buddypress_integration_avatars_qi',(bool)qa_post_text('buddypress_integration_avatars_qi'));
+		    qa_opt('buddypress_integration_avatars_a',(bool)qa_post_text('buddypress_integration_avatars_a'));
+		    qa_opt('buddypress_integration_avatars_c',(bool)qa_post_text('buddypress_integration_avatars_c'));
 		    qa_opt('buddypress_integration_avatar_head',(bool)qa_post_text('buddypress_integration_avatar_head'));
-		    qa_opt('buddypress_integration_avatar_h',(int)qa_post_text('buddypress_integration_avatar_h'));
-		    qa_opt('buddypress_integration_avatar_w',(int)qa_post_text('buddypress_integration_avatar_w'));
+
+		    qa_opt('buddypress_integration_avatars_qv_size',(int)qa_post_text('buddypress_integration_avatars_qv_size'));
+		    qa_opt('buddypress_integration_avatars_qi_size',(int)qa_post_text('buddypress_integration_avatars_qi_size'));
+		    qa_opt('buddypress_integration_avatars_a_size',(int)qa_post_text('buddypress_integration_avatars_a_size'));
+		    qa_opt('buddypress_integration_avatars_c_size',(int)qa_post_text('buddypress_integration_avatars_c_size'));
 
 		    qa_opt('buddypress_integration_max_post_length',(int)qa_post_text('buddypress_integration_max_post_length'));
 
@@ -161,32 +171,60 @@
             
             
             $fields[] = array(
-                'label' => 'Enable Buddypress avatars',
-                'tags' => 'NAME="buddypress_integration_avatars"',
-                'value' => qa_opt('buddypress_integration_avatars'),
+                'label' => 'Enable Buddypress avatars for questions on page',
+                'tags' => 'NAME="buddypress_integration_avatars_qv"',
+                'value' => qa_opt('buddypress_integration_avatars_qv'),
                 'type' => 'checkbox',
             );
-            
+            $fields[] = array(
+                'label' => 'Avatar size (in pixels)',
+                'tags' => 'NAME="buddypress_integration_avatars_qv_size"',
+                'value' => qa_opt('buddypress_integration_avatars_qv_size'),
+                'type' => 'number',
+            );
+            $fields[] = array(
+                'label' => 'Enable Buddypress avatars for questions in list',
+                'tags' => 'NAME="buddypress_integration_avatars_qi"',
+                'value' => qa_opt('buddypress_integration_avatars_qi'),
+                'type' => 'checkbox',
+            );
+            $fields[] = array(
+                'label' => 'Avatar size (in pixels)',
+                'tags' => 'NAME="buddypress_integration_avatars_qi_size"',
+                'value' => qa_opt('buddypress_integration_avatars_qi_size'),
+                'type' => 'number',
+            );
+            $fields[] = array(
+                'label' => 'Enable Buddypress avatars for answers',
+                'tags' => 'NAME="buddypress_integration_avatars_a"',
+                'value' => qa_opt('buddypress_integration_avatars_a'),
+                'type' => 'checkbox',
+            );
+            $fields[] = array(
+                'label' => 'Avatar size (in pixels)',
+                'tags' => 'NAME="buddypress_integration_avatars_a_size"',
+                'value' => qa_opt('buddypress_integration_avatars_a_size'),
+                'type' => 'number',
+            );
+            $fields[] = array(
+                'label' => 'Enable Buddypress avatars for comments',
+                'tags' => 'NAME="buddypress_integration_avatars_c"',
+                'value' => qa_opt('buddypress_integration_avatars_c'),
+                'type' => 'checkbox',
+            );
+            $fields[] = array(
+                'label' => 'Avatar size (in pixels)',
+                'tags' => 'NAME="buddypress_integration_avatars_c_size"',
+                'value' => qa_opt('buddypress_integration_avatars_c_size'),
+                'type' => 'number',
+            );
+	    
             $fields[] = array(
                 'label' => 'Add questioner\'s Buddypress avatar to head',
                 'tags' => 'NAME="buddypress_integration_avatar_head"',
                 'value' => qa_opt('buddypress_integration_avatar_head'),
                 'type' => 'checkbox',
 		'note' => 'adds a link to the &lt;head&gt; of each question page that is picked up by sites like Facebook'
-            );
- 
-            $fields[] = array(
-                'label' => 'Buddypress avatar width',
-                'tags' => 'NAME="buddypress_integration_avatar_w"',
-                'value' => qa_opt('buddypress_integration_avatar_w'),
-                'type' => 'number',
-            );
- 
-            $fields[] = array(
-                'label' => 'Buddypress avatar height',
-                'tags' => 'NAME="buddypress_integration_avatar_h"',
-                'value' => qa_opt('buddypress_integration_avatar_h'),
-                'type' => 'number',
             );
             
  

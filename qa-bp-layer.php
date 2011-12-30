@@ -66,7 +66,7 @@
 			if(qa_opt('buddypress_integration_enable') && qa_opt('buddypress_display_names')) {
 				if (isset($post['who']['data'])) {
 					
-					$handle = strip_tags($post['who']['data']);
+					$handle = $this->who_to_handle($post['who']['data']);
 					$name = bp_core_get_user_displayname($handle);
 					if($name)
 						$post['who']['data']  = str_replace('>'.$handle.'<',' title="@'.$handle.'">'.$name.'<',$post['who']['data']);
@@ -75,7 +75,7 @@
 					
 				}
 				if (isset($post['who_2']['data'])) {
-					$handle2 = strip_tags($post['who_2']['data']);
+					$handle2 = $this->who_to_handle($post['who_2']['data']);
 					$name2 = bp_core_get_user_displayname($handle2);
 					if($name2)
 						$post['who_2']['data']  = str_replace('>'.$handle2.'<',' title="@'.$handle2.'">'.$name2.'<',$post['who_2']['data']);
@@ -100,23 +100,36 @@
 		}
 		
 	// avatars
+		function q_view($post) {
+            if (qa_opt('buddypress_integration_enable') && qa_opt('buddypress_integration_avatars_qv'))
+				$post['avatar'] = $this->get_bp_avatar($post['raw']['userid'],qa_opt('buddypress_integration_avatars_qv_size'));
+			qa_html_theme_base::q_view($post);
+		}
+		function q_list_item($post) {
+            if (qa_opt('buddypress_integration_enable') && qa_opt('buddypress_integration_avatars_qi'))
+				$post['avatar'] = $this->get_bp_avatar($post['raw']['userid'],qa_opt('buddypress_integration_avatars_qi_size'));
+			qa_html_theme_base::q_list_item($post);
+		}
+		function a_list_item($post) {
+            if (qa_opt('buddypress_integration_enable') && qa_opt('buddypress_integration_avatars_a'))
+				$post['avatar'] = $this->get_bp_avatar($post['raw']['userid'],qa_opt('buddypress_integration_avatars_a_size'));
+			qa_html_theme_base::a_list_item($post);
+		}
+		function c_list_item($post) {
+            if (qa_opt('buddypress_integration_enable') && qa_opt('buddypress_integration_avatars_c'))
+				$post['avatar'] = $this->get_bp_avatar($post['raw']['userid'],qa_opt('buddypress_integration_avatars_c_size'));
+			qa_html_theme_base::c_list_item($post);
+		}
 
-        function post_avatar($post, $class, $prefix=null)
+        function get_bp_avatar($uid, $size)
         {
-            if (qa_opt('buddypress_integration_enable') && qa_opt('buddypress_integration_avatars')) {
-				if (isset($prefix))
-					$this->output($prefix);
-				
-				$id = $post['raw']['userid'];
-				$user_info = get_userdata($id);
-				$email = $user_info->user_email;
-				$avatar = bp_core_fetch_avatar( array( 'item_id' => $id, 'width' => qa_opt('buddypress_integration_avatar_w'), 'height' => qa_opt('buddypress_integration_avatar_h'), 'email' => $email ) );
-				$this->output('<SPAN CLASS="'.$class.'-avatar">', $avatar, '</SPAN>');
-			}
-			else
-				qa_html_theme_base::post_avatar($post, $class, $prefix=null);
-        }	
-
+			$user_info = get_userdata($uid);
+			$email = $user_info->user_email;
+			$avatar = bp_core_fetch_avatar( array( 'item_id' => $uid, 'width' => $size, 'height' => $size, 'email' => $email ) );
+			
+			return $avatar;
+        }
+        
 	// @mentions
 
 		function q_view_content($q_view)
@@ -243,5 +256,11 @@
 			if (!isset($userid)) return;
 			return $userid;
 		}		
+		// grab the handle from meta
+		function who_to_handle($string)
+		{
+			preg_match( '#qa-user-link">(.+)<#', $string, $matches );
+			return !empty($matches[1]) ? $matches[1] : null;
+		}	
 	}
 
