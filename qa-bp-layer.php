@@ -259,7 +259,7 @@
 		// grab the handle from meta
 		function who_to_handle($string)
 		{
-			preg_match( '#qa-user-link">(.+)<#', $string, $matches );
+			preg_match( '#qa-user-link">([^<]*)<#', $string, $matches );
 			return !empty($matches[1]) ? $matches[1] : null;
 		}	
 	}
