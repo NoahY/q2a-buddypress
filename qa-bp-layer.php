@@ -61,7 +61,7 @@
 			qa_html_theme_base::logged_in();
 		}
 
-		function post_meta_who($post, $class)
+		function post_meta($post, $class, $prefix=null, $separator='<BR/>')
 		{
 			if(qa_opt('buddypress_integration_enable') && qa_opt('buddypress_display_names')) {
 				if (isset($post['who']['data'])) {
@@ -81,10 +81,9 @@
 						$post['who_2']['data']  = str_replace('>'.$handle2.'<',' title="@'.$handle2.'">'.$name2.'<',$post['who_2']['data']);
 					if($handle2 && !in_array($handle2,$this->bp_mentions)) // @mentions
 						$this->bp_mentions[] = $handle2;
-
 				}
 			}
-			qa_html_theme_base::post_meta_who($post, $class);
+			qa_html_theme_base::post_meta($post, $class, $prefix, $separator);
 			
 		}		
 
