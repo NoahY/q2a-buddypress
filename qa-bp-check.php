@@ -134,18 +134,18 @@
 				$anchor = qa_anchor(($event == 'a_post'?'A':'C'), $params['postid']);
 				$suffix = preg_replace('/%([^%]+)%/','<a href="'.qa_path_html(qa_q_request($parent['postid'], $parent['title']), null, qa_opt('site_url'),null,$anchor).'">$1</a>',$suffix);
 				$activity_url = qa_path_html(qa_q_request($parent['postid'], $parent['title']), null, qa_opt('site_url'));
-				$context = $suffix.'"<a href="'.$activity_url.'">'.$parent['title'].'</a>".';
+				$context = $suffix.'"<a href="'.$activity_url.'">'.$parent['title'].'</a>"';
 			}
 			else {
 				$activity_url = qa_path_html(qa_q_request($params['postid'], $params['title']), null, qa_opt('site_url'));
-				$context = $suffix.'"<a href="'.$activity_url.'">'.$params['title'].'</a>".';
+				$context = $suffix.'"<a href="'.$activity_url.'">'.$params['title'].'</a>"';
 			}
 			if(qa_opt('buddypress_display_names'))
 				$name = bp_core_get_user_displayname($handle)?bp_core_get_user_displayname($handle):$handle;
 			else 
 				$name = $handle;
 			
-			$action = '<a href="' . bp_core_get_user_domain($userid) . '" rel="nofollow">'.$name.'</a> posted a'.$context;
+			$action = '<a href="' . bp_core_get_user_domain($userid) . '" rel="nofollow">'.$name.'</a> posted a'.$context.'on <a href="'.qa_opt('site_url').'">'.qa_opt('site_title').'</a>';
 
 			if(qa_opt('buddypress_integration_include_content')) {
 
