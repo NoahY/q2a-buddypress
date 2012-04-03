@@ -5,7 +5,7 @@
         Plugin URI: https://github.com/NoahY/q2a-buddypress
         Plugin Update Check URI: https://github.com/NoahY/q2a-buddypress/raw/master/qa-plugin.php
         Plugin Description: 
-        Plugin Version: 1.0b
+        Plugin Version: 1.1
         Plugin Date: 2011-08-15
         Plugin Author: NoahY
         Plugin Author URI: 
