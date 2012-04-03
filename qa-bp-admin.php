@@ -62,6 +62,8 @@
 		    qa_opt('buddypress_integration_post_a',(bool)qa_post_text('buddypress_integration_post_a'));
 		    qa_opt('buddypress_integration_post_c',(bool)qa_post_text('buddypress_integration_post_c'));
 		    
+		    qa_opt('buddypress_integration_priv_message',(bool)qa_post_text('buddypress_integration_priv_message'));
+		    
 		    qa_opt('buddypress_mentions',(bool)qa_post_text('buddypress_mentions'));
 		    qa_opt('buddypress_integration_autocomplete',(bool)qa_post_text('buddypress_integration_autocomplete'));
 		    
@@ -269,8 +271,14 @@
                 'label' => 'Buddypress profile box css',
                 'tags' => 'NAME="buddypress_integration_css"',
                 'value' => qa_opt('buddypress_integration_css'),
-		'type' => 'textarea',
-		'rows' => 20
+				'type' => 'textarea',
+				'rows' => 20
+            );
+            $fields[] = array(
+                'label' => 'Add Buddypress private message button to profile',
+                'tags' => 'NAME="buddypress_integration_priv_message"',
+                'value' => qa_opt('buddypress_integration_priv_message'),
+				'type' => 'checkbox',
             );
  
 
