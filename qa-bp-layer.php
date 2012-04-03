@@ -26,11 +26,8 @@
 
 		function main_parts($content)
 		{
-			if (qa_opt('buddypress_integration_enable') && $this->template == 'user' && !qa_get('tab')) { 
-				if(qa_opt('buddypress_enable_profile'))
-					$content = array_merge(array('form-buddypress-list' => $this->user_buddypress_form($content['raw']['userid'])),$content);
-			}
-
+			if (qa_opt('buddypress_integration_enable') && $this->template == 'user' && !qa_get('tab'))
+					$content = $this->user_buddypress_form($content);
 			qa_html_theme_base::main_parts($content);
 
 		}
@@ -190,10 +187,13 @@
 			return $content;
 		}
 		
-		function user_buddypress_form($userid) {
+		function user_buddypress_form($content) {
+			
 			// displays badge list in user profile
 			
 			global $qa_request;
+			
+			$userid = $content['raw']['userid'];
 
 			$handles = qa_userids_to_handles(array($userid));
 			$handle = $handles[$userid];
@@ -202,59 +202,79 @@
 
 			global $bp;
 
-			if(qa_opt('buddypress_integration_priv_message') && qa_get_logged_in_userid() && $userid != qa_get_logged_in_userid()) {
-				$fields[] = array(
-					'label' => '<a href="'.wp_nonce_url( $bp->loggedin_user->domain . $bp->messages->slug . '/compose/?r='.$handle).'">'.qa_lang('misc/private_message_title').'</a>',
-					'type' => 'static'
+
+			if(qa_opt('buddypress_enable_profile')) {
+				$idx = 1;
+				if ( bp_has_profile(array('user_id' => $userid)) ) : 
+					while ( bp_profile_groups() ) : bp_the_profile_group();
+
+						if ( bp_profile_group_has_fields() ) :
+							$fields[] = array(
+									'label' => '<span class="qa-bp-profile-group-title">'.bp_get_the_profile_group_name().'</span>',
+									'type' => 'static',
+									'value' => (qa_get_logged_in_userid() === $userid ? ' <a class="qa-bp-profile-group-edit" href="'.bp_loggedin_user_domain() . $bp->profile->slug . '/edit/group/'.$idx++.'">'.qa_lang_html('question/edit_button').'</a>' :''),
+							);
+
+							while ( bp_profile_fields() ) : bp_the_profile_field();
+
+								if ( bp_field_has_data() ) :
+
+									$fields[] = array(
+											'label' => bp_get_the_profile_field_name(),
+											'type' => 'static',
+											'value' => preg_replace('|</*p>|','',bp_get_the_profile_field_value())
+									);										
+
+								endif;
+
+							endwhile;
+
+
+						endif;
+
+					endwhile;
+
+				endif;
+
+				$ok = null;
+				$tags = null;
+				$buttons = array();
+				
+				$title = '<a href="'.bp_core_get_user_domain($userid) . $bp->profile->slug .'/">'.qa_opt('buddypress_integration_title').'</a>';
+
+				$content = array_merge(
+					array('form-buddypress-list'=> array(				
+						'ok' => ($ok && !isset($error)) ? $ok : null,
+						'style' => 'wide',
+						'tags' => $tags,
+						'title' => $title,
+						'fields'=>$fields,
+						'buttons'=>$buttons,
+						)
+					),
+					$content
 				);
+			}		
+
+			if(qa_opt('buddypress_integration_priv_message') && qa_get_logged_in_userid() && $userid != qa_get_logged_in_userid()) {
+				$content = array_merge(
+					array(
+						'form-buddypress-message' => array(
+							'fields' => array('field' => array(
+									'label' => '<a href="'.wp_nonce_url( $bp->loggedin_user->domain . $bp->messages->slug . '/compose/?r='.$handle).'">'.qa_lang('misc/private_message_title').'</a>',
+									'type' => 'static'
+								)
+							),
+							'style' => 'wide'
+						)
+					),
+					$content
+				);
+					
 			}	
-
-			$idx = 1;
-			if ( bp_has_profile(array('user_id' => $userid)) ) : 
-				while ( bp_profile_groups() ) : bp_the_profile_group();
-
-					if ( bp_profile_group_has_fields() ) :
-						$fields[] = array(
-								'label' => '<span class="qa-bp-profile-group-title">'.bp_get_the_profile_group_name().'</span>',
-								'type' => 'static',
-								'value' => (qa_get_logged_in_userid() === $userid ? ' <a class="qa-bp-profile-group-edit" href="'.bp_loggedin_user_domain() . $bp->profile->slug . '/edit/group/'.$idx++.'">'.qa_lang_html('question/edit_button').'</a>' :''),
-						);
-
-						while ( bp_profile_fields() ) : bp_the_profile_field();
-
-							if ( bp_field_has_data() ) :
-
-								$fields[] = array(
-										'label' => bp_get_the_profile_field_name(),
-										'type' => 'static',
-										'value' => preg_replace('|</*p>|','',bp_get_the_profile_field_value())
-								);										
-
-							endif;
-
-						endwhile;
-
-
-					endif;
-
-				endwhile;
-
-			endif;
-
-			$ok = null;
-			$tags = null;
-			$buttons = array();
+			qa_error_log($content);
 			
-			$title = '<a href="'.bp_core_get_user_domain($userid) . $bp->profile->slug .'/">'.qa_opt('buddypress_integration_title').'</a>';
-
-			return array(				
-				'ok' => ($ok && !isset($error)) ? $ok : null,
-				'style' => 'wide',
-				'tags' => $tags,
-				'title' => $title,
-				'fields'=>$fields,
-				'buttons'=>$buttons,
-			);
+			return $content;
 			
 		}
 
