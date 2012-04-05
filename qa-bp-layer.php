@@ -272,8 +272,7 @@
 				);
 					
 			}	
-			qa_error_log($content);
-			
+		
 			return $content;
 			
 		}
