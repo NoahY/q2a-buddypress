@@ -3,7 +3,7 @@
 /*
         Plugin Name: Buddypress Integration
         Plugin URI: https://github.com/NoahY/q2a-buddypress
-        Plugin Update Check URI: https://github.com/NoahY/q2a-buddypress/raw/master/qa-plugin.php
+        Plugin Update Check URI: https://raw.github.com/NoahY/q2a-buddypress/master/qa-plugin.php
         Plugin Description: 
         Plugin Version: 1.1
         Plugin Date: 2011-08-15
