@@ -145,7 +145,7 @@
 			else 
 				$name = $handle;
 			
-			$action = '<a href="' . bp_core_get_user_domain($userid) . '" rel="nofollow">'.$name.'</a> posted a'.$context.'on <a href="'.qa_opt('site_url').'">'.qa_opt('site_title').'</a>';
+			$action = '<a href="' . bp_core_get_user_domain($userid) . '" rel="nofollow">'.$name.'</a> posted a'.$context.' on <a href="'.qa_opt('site_url').'">'.qa_opt('site_title').'</a>';
 
 			if(qa_opt('buddypress_integration_include_content')) {
 
