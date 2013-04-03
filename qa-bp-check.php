@@ -140,12 +140,13 @@
 				$activity_url = qa_path_html(qa_q_request($params['postid'], $params['title']), null, qa_opt('site_url'));
 				$context = $suffix.'"<a href="'.$activity_url.'">'.$params['title'].'</a>"';
 			}
+			
 			if(qa_opt('buddypress_display_names'))
 				$name = bp_core_get_user_displayname($handle)?bp_core_get_user_displayname($handle):$handle;
 			else 
 				$name = $handle;
 			
-			$action = '<a href="' . bp_core_get_user_domain($userid) . '" rel="nofollow">'.$name.'</a> posted a'.$context.' on <a href="'.qa_opt('site_url').'">'.qa_opt('site_title').'</a>';
+			$action = '<a href="' . bp_core_get_user_domain($userid) . '" rel="nofollow">'.$name.'</a> posted a'.$context.' at <a href="'.qa_opt('site_url').'">'.qa_opt('site_title').'</a>';
 
 			if(qa_opt('buddypress_integration_include_content')) {
 
